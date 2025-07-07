@@ -1,0 +1,132 @@
+@use 'reset';
+@use 'fonts';
+
+/* =========================
+   Root Variables
+   ========================= */
+
+// Breakpoints (Sass variables)
+$breakpoint-tablet: 768px;
+$breakpoint-mobile: 480px;
+
+:root {
+  /* Container Sizes */
+  --container-xl: 1440px;
+  --container-lg: 1280px;
+  --container-md: 1040px;
+  --container-sm: 940px;
+  --container-xs: 740px;
+  --container-xxs: 540px;
+  --container-xxxs: 330px;
+
+  /* Breakpoints */
+  --breakpoint-tablet: 768px;
+  --breakpoint-mobile: 480px;
+
+  /* Backgrounds */
+  --bg-main: linear-gradient(to left bottom, #fff, rgba(98, 244, 237, 0.5));
+  --bg-secondary: linear-gradient(to top, #fff 20%, #98ffea 100%);
+  --bg-block: linear-gradient(to left bottom, #fff, rgba(98, 244, 237, 0.5));
+
+  /* Buttons & Active */
+  --btn-main: #139279;
+  --btn-submit: linear-gradient(60deg, #ff9a3b, #ff4500);
+  --btn-submit-hover: linear-gradient(60deg, #fa902f, #ff2f00);
+  --btn-active: #0ac80a;
+  --btn-active-secondary: #9bfdaf;
+  --btn-secondary: #ff4500;
+
+  /* Typography */
+  --font-family-main: 'Gilroy', sans-serif;
+  --font-family-secondary: 'SF Pro Text', sans-serif;
+  --font-family-tertiary: 'Inter', sans-serif;
+
+  /* Font Sizes */
+  --font-size-h1: 3rem;
+  --font-size-h2: 2.5rem;
+  --font-size-h3: 2rem;
+  --font-size-body: 1rem;
+  --font-size-small: 0.875rem;
+
+  /* Line Heights */
+  --line-height-h1: 1.2;
+  --line-height-body: 1.6;
+
+  /* Colors */
+  --color-text-primary: #333;
+  --color-text-base: #303236;
+  --color-text-secondary: #555;
+  --color-text-title: #4b4f57;
+  --color-text-alt: #374151;
+  --color-placeholder: #999;
+}
+
+/* =========================
+   Base Styles
+   ========================= */
+body {
+  font-family: var(--font-family-main);
+  font-weight: 400;
+  font-size: var(--font-size-body);
+  line-height: var(--line-height-body);
+  color: var(--color-text-secondary);
+}
+
+h1,
+h2,
+h3,
+h4,
+h5,
+h6 {
+  font-family: 'Montserrat', 'Poppins', sans-serif;
+  font-weight: 700;
+  color: var(--color-text-primary);
+  line-height: var(--line-height-h1);
+}
+
+h1 {
+  font-size: var(--font-size-h1);
+}
+h2 {
+  font-size: var(--font-size-h2);
+}
+h3 {
+  font-size: var(--font-size-h3);
+}
+
+small {
+  font-family: var(--font-family-main);
+  font-weight: 300;
+  font-size: var(--font-size-small);
+  color: var(--color-text-secondary);
+}
+
+p {
+  font-family: var(--font-family-main);
+  font-weight: 500;
+  font-size: var(--font-size-body);
+  color: var(--color-text-primary);
+}
+
+/* =========================
+   Responsive Typography
+   ========================= */
+@media (max-width: $breakpoint-tablet) {
+  :root {
+    --font-size-h1: 2.5rem;
+    --font-size-h2: 2rem;
+    --font-size-h3: 1.75rem;
+    --font-size-body: 0.9rem;
+    --font-size-small: 0.8rem;
+  }
+}
+
+@media (max-width: $breakpoint-mobile) {
+  :root {
+    --font-size-h1: 2rem;
+    --font-size-h2: 1.75rem;
+    --font-size-h3: 1.5rem;
+    --font-size-body: 0.875rem;
+    --font-size-small: 0.75rem;
+  }
+}
