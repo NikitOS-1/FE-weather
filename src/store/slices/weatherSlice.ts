@@ -20,6 +20,8 @@ export const getWeatherByCity = createAsyncThunk<WeatherData, string>(
         windSpeed: data.wind.speed,
         pressure: data.main.pressure,
         updatedAt: Date.now(),
+        lat: data.coord.lat,
+        lon: data.coord.lon,
       };
     } catch (error: any) {
       return rejectWithValue(error?.message || 'Failed to fetch weather');

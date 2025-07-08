@@ -1,45 +1,61 @@
-import { useEffect } from 'react';
 import { useParams, useNavigate } from 'react-router-dom';
-// import { fetchCityDetails } from "@/features/weather/weatherThunks";
-// import { selectCityDetails } from "@/features/weather/weatherSlice";
+import { useEffect, useState } from 'react';
+import { getWeatherByCity } from '../../store/slices/weatherSlice';
+import weatherService from '../../services/weather/weatherService';
 import { Line } from 'react-chartjs-2';
+import 'chart.js/auto';
 import './CityPage.scss';
-import { useAppSelector } from '../../helpers/useAppSelector';
 import { useAppDispatch } from '../../helpers/useAppDispatch';
-import { addCity } from '../../store/slices/weatherSlice';
-import type { WeatherData } from '../../commons/interfaces';
+import { useAppSelector } from '../../helpers/useAppSelector';
 
 const CityPage = () => {
-  const { cityName } = useParams<{ cityName: string }>();
+  const { cityKey } = useParams<{ cityKey: string }>();
   const navigate = useNavigate();
   const dispatch = useAppDispatch();
-  const savedCities = useAppSelector((state) => state.city.cities);
-  // const { current, hourly, loading, error } = useAppSelector((state) =>
-  // selectCityDetails(state, cityName ?? ''),
-  // );
+  const weather = useAppSelector((state) => state.weather.weatherByCity[cityKey ?? '']);
+  const [hourly, setHourly] = useState<any[]>([]);
+  const [loading, setLoading] = useState(false);
+  const [error, setError] = useState<string | null>(null);
 
-  const { current, hourly, loading, error } = useAppSelector((state) => state.weather.cityDetails);
   useEffect(() => {
-    savedCities.forEach((city: WeatherData) => {
-      dispatch(addCity(city.name));
-    });
-  }, []);
+    if (!weather && cityKey) {
+      dispatch(getWeatherByCity(cityKey));
+    }
+  }, [cityKey, weather, dispatch]);
 
-  if (loading) return <div className="loader">Loading...</div>;
-  if (error) return <div className="error">{error}</div>;
-  if (!current) return null;
+  useEffect(() => {
+    const fetchHourly = async () => {
+      if (weather?.lat && weather?.lon) {
+        setLoading(true);
+        try {
+          const data = await weatherService.getHourlyWeatherByCoords({
+            lat: weather.lat,
+            lon: weather.lon,
+          });
+          setHourly(data.list.slice(0, 12));
+        } catch (e: any) {
+          setError('Failed to load hourly forecast');
+        } finally {
+          setLoading(false);
+        }
+      }
+    };
+    fetchHourly();
+  }, [weather]);
+
+  if (!weather) return <div className="city-page__loader">Loading...</div>;
+  if (error) return <div className="city-page__error">{error}</div>;
 
   const chartData = {
-    labels: hourly.map((h:any) =>
-      new Date(h.dt * 1000).toLocaleTimeString([], {
-        hour: '2-digit',
-        minute: '2-digit',
-      }),
+    labels: hourly.map((h) =>
+      new Date(h.dt * 1000).toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' }),
     ),
     datasets: [
       {
-        label: '°C',
-        data: hourly.map((h: any) => h.temp),
+        label: 'Temperature, °C',
+        data: hourly.map((h) => h.main.temp),
+        borderColor: '#139279',
+        backgroundColor: 'rgba(19,146,121,0.1)',
         tension: 0.4,
       },
     ],
@@ -49,36 +65,33 @@ const CityPage = () => {
     responsive: true,
     maintainAspectRatio: false,
     scales: {
-      y: {
-        beginAtZero: false,
-      },
+      y: { beginAtZero: false },
     },
   } as const;
 
   return (
     <div className="city-page">
-      <button className="back" onClick={() => navigate(-1)}>
+      <button className="city-page__back" onClick={() => navigate(-1)}>
         ← Back
       </button>
-
-      <h1 className="city-page__title">{current.name}</h1>
-
+      <h1 className="city-page__title">{weather.name}</h1>
       <div className="city-page__current">
         <img
-          src={`https://openweathermap.org/img/wn/${current.weather[0].icon}@4x.png`}
-          alt={current.weather[0].description}
+          className="city-page__icon"
+          src={`https://openweathermap.org/img/wn/${weather.icon}@4x.png`}
+          alt={weather.description}
         />
-        <div className="city-page__temp">{Math.round(current.main.temp)}°C</div>
-        <div className="city-page__description">{current.weather[0].description}</div>
+        <div className="city-page__temp">{Math.round(weather.temperature)}°C</div>
+        <div className="city-page__description">{weather.description}</div>
         <div className="city-page__meta">
-          <span>Humidity: {current.main.humidity}%</span>
-          <span>Wind: {current.wind.speed} m/s</span>
+          <span>Humidity: {weather.humidity}%</span>
+          <span>Wind: {weather.windSpeed} m/s</span>
+          <span>Pressure: {weather.pressure} hPa</span>
         </div>
       </div>
-
-      <section className="city-page__chart">
-        <h2>Hourly forecast</h2>
-        <div className="chart-wrapper">
+      <section className="city-page__chart-section">
+        <h2>Hourly Forecast</h2>
+        <div className="city-page__chart-wrapper">
           <Line data={chartData} options={chartOptions} />
         </div>
       </section>

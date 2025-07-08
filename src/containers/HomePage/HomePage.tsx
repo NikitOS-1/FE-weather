@@ -51,7 +51,7 @@ export const HomePage = () => {
               updatedAt={weather.updatedAt}
               temperature={weather.temperature}
               description={weather.description}
-              onClick={() => navigate(`/${weather.name}`)}
+              onClick={() => navigate(`/${city}`)}
               onRefresh={() => handleRefresh(city)}
               onDelete={() => handleDelete(city)}
             />

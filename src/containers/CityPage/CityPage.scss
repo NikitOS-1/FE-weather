@@ -2,58 +2,156 @@
   padding: 2rem;
   max-width: 800px;
   margin: 0 auto;
-  font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
 
-  h2 {
-    font-size: 2rem;
-    margin-bottom: 1rem;
-    text-align: center;
-    color: #333;
-  }
+  &__back {
+    background: none;
+    border: none;
+    color: #139279;
+    font-size: 1.2rem;
+    cursor: pointer;
+    margin-bottom: 1.5rem;
+    transition: color 0.2s;
 
-  .city-info {
-    background: #f0f4f8;
-    padding: 1.5rem;
-    border-radius: 10px;
-    margin-bottom: 2rem;
-    text-align: center;
-    box-shadow: 0 0 10px rgba(0, 0, 0, 0.05);
-
-    p {
-      font-size: 1.1rem;
-      margin: 0.3rem 0;
-
-      span {
-        font-weight: 600;
-        color: #1e90ff;
-      }
+    &:hover {
+      color: #010504;
     }
   }
 
-  .chart {
+  &__title {
+    font-weight: 700;
+    text-align: center;
+    margin-bottom: 1.2rem;
+    color: #222;
+  }
+
+  &__current {
+    background: #89efe392;
+    padding: 1.5rem 1rem;
+    border-radius: 12px;
+    margin-bottom: 2rem;
+    text-align: center;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.05);
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 0.7rem;
+  }
+
+  &__icon {
+    width: 90px;
+    height: 90px;
+    margin-bottom: 0.5rem;
+  }
+
+  &__temp {
+    font-size: 2.5rem;
+    font-weight: bold;
+    color: #139279;
+    margin-bottom: 0.2rem;
+  }
+
+  &__description {
+    font-size: 1.15rem;
+    color: #444;
+    margin-bottom: 0.5rem;
+    text-transform: capitalize;
+  }
+
+  &__meta {
+    display: flex;
+    gap: 1.5rem;
+    justify-content: center;
+    font-size: 1rem;
+    color: #666;
+    flex-wrap: wrap;
+    span {
+      background: #e6f7f3;
+      border-radius: 6px;
+      padding: 0.2rem 0.7rem;
+      margin: 0.1rem 0;
+    }
+  }
+
+  &__chart-section {
+    margin-top: 2rem;
+    h2 {
+      font-size: 1.4rem;
+      margin-bottom: 1rem;
+      text-align: center;
+      color: #139279;
+    }
+  }
+
+  &__chart-wrapper {
     background: #fff;
     padding: 1rem;
     border-radius: 10px;
     box-shadow: 0 0 8px rgba(0, 0, 0, 0.05);
+    min-height: 260px;
+    height: 300px;
+    width: 100%;
+    max-width: 100%;
+    overflow-x: auto;
   }
 
-  .loading,
-  .error {
+  &__loader,
+  &__error {
     text-align: center;
     font-size: 1.2rem;
     margin-top: 3rem;
     color: #999;
   }
 
-  @media (max-width: 600px) {
+  @media (max-width: 700px) {
     padding: 1rem;
-
-    h2 {
+    &__title {
       font-size: 1.5rem;
     }
+    &__current {
+      padding: 1rem 0.5rem;
+    }
+    &__icon {
+      width: 60px;
+      height: 60px;
+    }
+    &__temp {
+      font-size: 2rem;
+    }
+    &__meta {
+      gap: 0.7rem;
+      font-size: 0.95rem;
+    }
+    &__chart-wrapper {
+      padding: 0.5rem;
+      height: 220px;
+      min-height: 180px;
+    }
+  }
 
-    .city-info p {
-      font-size: 1rem;
+  @media (max-width: 480px) {
+    padding: 0.5rem;
+    &__title {
+      font-size: 1.1rem;
+    }
+    &__current {
+      padding: 0.7rem 0.2rem;
+    }
+    &__icon {
+      width: 40px;
+      height: 40px;
+    }
+    &__temp {
+      font-size: 1.3rem;
+    }
+    &__meta {
+      gap: 0.3rem;
+      font-size: 0.85rem;
+    }
+    &__chart-wrapper {
+      margin-top: 2rem;
+      padding: 0.2rem;
+      height: 220px;
+      min-height: 100px;
     }
   }
 }

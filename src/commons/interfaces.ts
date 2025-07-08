@@ -10,6 +10,8 @@ export interface WeatherData {
   windSpeed: number;
   pressure: number;
   updatedAt: number;
+  lat: number;
+  lon: number;
 }
 
 export interface WeatherApiResponse {
