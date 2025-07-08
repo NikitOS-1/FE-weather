@@ -5,6 +5,18 @@ import App from './containers/App/App.tsx';
 import { Provider } from 'react-redux';
 import { store } from './store/store.ts';
 import './style/root-style.scss';
+import {
+  Chart as ChartJS,
+  LineElement,
+  PointElement,
+  LinearScale,
+  CategoryScale,
+  Title,
+  Tooltip,
+  Legend,
+} from 'chart.js';
+
+ChartJS.register(LineElement, PointElement, LinearScale, CategoryScale, Title, Tooltip, Legend);
 
 createRoot(document.getElementById('root')!).render(
   <StrictMode>

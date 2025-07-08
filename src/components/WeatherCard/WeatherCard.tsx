@@ -2,28 +2,42 @@ import './WeatherCard.scss';
 import deleteIcon from '../../asset/icon/delete.svg';
 import refreshIcon from '../../asset/icon/refresh.svg';
 import sunnyIcon from '../../asset/icon/weaters/sunny_24dp_434343_FILL0_wght400_GRAD0_opsz24.svg';
+import addIcon from '../../asset/icon/add_2_35dp_434343_FILL0_wght400_GRAD0_opsz40.svg';
 
 interface WeatherCardProps {
   city: string;
   temperature: number;
   description: string;
+  isAdded: boolean;
   onClick: () => void;
   onRefresh: () => void;
   onDelete: () => void;
+  addCity: (city: string) => void;
 }
 
 export const WeatherCard = ({
   city,
   temperature,
   description,
+  isAdded,
   onClick,
   onRefresh,
   onDelete,
+  addCity
 }: WeatherCardProps) => {
   return (
     <section className="weather-card" onClick={onClick}>
       <div className="weather-card__header">
         <h3 className="weather-card__header__title">{city}</h3>
+        <button
+          className={`weather-card__header__btn--hover${isAdded ? ' weather-card__header__btn--active' : ''}`}
+          onClick={(e) => {
+            e.stopPropagation();
+            addCity(city);
+          }}
+        >
+          <img src={addIcon} alt="Add city to my list/button" />
+        </button>
       </div>
       <div className="weather-card__image-info">
         <img src={sunnyIcon} alt="Weather" />
