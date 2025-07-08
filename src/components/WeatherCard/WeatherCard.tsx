@@ -9,6 +9,7 @@ interface WeatherCardProps {
   description: string;
   onClick: () => void;
   onRefresh: () => void;
+  onDelete: () => void;
 }
 
 export const WeatherCard = ({
@@ -17,6 +18,7 @@ export const WeatherCard = ({
   description,
   onClick,
   onRefresh,
+  onDelete,
 }: WeatherCardProps) => {
   return (
     <section className="weather-card" onClick={onClick}>
@@ -39,16 +41,16 @@ export const WeatherCard = ({
               onRefresh();
             }}
           >
-            <img src={refreshIcon} alt="Refresh weather button" />
+            <img src={refreshIcon} alt="Refresh weather/button" />
           </button>
           <button
             className="weather-card__body__btn-group--hover"
             onClick={(e) => {
               e.stopPropagation();
-              onRefresh();
+              onDelete();
             }}
           >
-            <img src={deleteIcon} alt="Delete city button" />
+            <img src={deleteIcon} alt="Delete city/button" />
           </button>
         </div>
       </div>

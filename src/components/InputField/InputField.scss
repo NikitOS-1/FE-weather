@@ -1,0 +1,44 @@
+.search-input {
+  width: 100%;
+  max-width: 600px;
+  padding: 0.9rem 1.2rem;
+  border-radius: 2rem;
+  border: 1.5px solid var(--btn-main, #139279);
+  background: #fff;
+  font-size: 1.1rem;
+  color: var(--color-text-primary, #333);
+  outline: none;
+  box-shadow: 0 2px 12px rgba(20, 180, 180, 0.07);
+  transition:
+    border 0.2s,
+    box-shadow 0.2s;
+
+  &::placeholder {
+    color: var(--color-placeholder, #999);
+    opacity: 1;
+    font-size: 1rem;
+    letter-spacing: 0.01em;
+  }
+
+  &:hover {
+    border-color: var(--btn-main, #38e3c1);
+    box-shadow: 0 4px 16px rgba(67, 255, 255, 0.13);
+    background: var(--bg-form, #f8fffd);
+  }
+
+  &:focus {
+    border-color: var(--btn-main, #139279);
+    box-shadow: 0 4px 16px rgba(20, 180, 180, 0.13);
+    background: var(--bg-form, #f8fffd);
+  }
+
+  @media (max-width: 768px) {
+    max-width: 100%;
+    font-size: 1rem;
+    padding: 0.7rem 1rem;
+  }
+
+  @media (max-width: 480px) {
+    padding: 0.6rem 0.8rem;
+  }
+}

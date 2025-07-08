@@ -1,6 +1,6 @@
+import { InputField } from '../../components/InputField/InputField';
 import { WeatherCard } from '../../components/WeatherCard/WeatherCard';
 import './HomePage.scss';
-
 
 const mockCities = [
   {
@@ -47,20 +47,23 @@ const mockCities = [
 
 export const HomePage = () => {
   return (
-    <div className="weather-list">
-      <section>
-        <input type="text" placeholder="search city" />
+    <main className="home-page">
+      <section className="home-page__search">
+        <InputField placeholder="Search city" />
       </section>
-      {mockCities.map((city) => (
-        <WeatherCard
-          key={city.city}
-          city={city.city}
-          temperature={city.temperature}
-          description={city.description}
-          onClick={() => alert(`Detailed: ${city.city}`)}
-          onRefresh={() => alert(`Refresh: ${city.city}`)}
-        />
-      ))}
-    </div>
+      <section className="home-page__weather-list">
+        {mockCities.map((city) => (
+          <WeatherCard
+            key={city.city}
+            city={city.city}
+            temperature={city.temperature}
+            description={city.description}
+            onClick={() => alert(`Detailed: ${city.city}`)}
+            onRefresh={() => alert(`Refresh: ${city.city}`)}
+            onDelete={() => alert(`Deleted: ${city.city}`)}
+          />
+        ))}
+      </section>
+    </main>
   );
 };
