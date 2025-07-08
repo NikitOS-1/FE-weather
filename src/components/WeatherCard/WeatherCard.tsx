@@ -1,50 +1,59 @@
 import './WeatherCard.scss';
 import deleteIcon from '../../asset/icon/delete.svg';
 import refreshIcon from '../../asset/icon/refresh.svg';
-import sunnyIcon from '../../asset/icon/weaters/sunny_24dp_434343_FILL0_wght400_GRAD0_opsz24.svg';
-import addIcon from '../../asset/icon/add_2_35dp_434343_FILL0_wght400_GRAD0_opsz40.svg';
+import { getWeatherIcon } from '../../commons/constants';
+import { useAppSelector } from '../../helpers/useAppSelector';
 
 interface WeatherCardProps {
   city: string;
+  country: string;
+  icon: string;
+  updatedAt: number;
   temperature: number;
   description: string;
-  isAdded: boolean;
+  state?: string;
   onClick: () => void;
   onRefresh: () => void;
   onDelete: () => void;
-  addCity: (city: string) => void;
 }
 
 export const WeatherCard = ({
   city,
   temperature,
   description,
-  isAdded,
+  icon,
+  country,
+  updatedAt,
   onClick,
   onRefresh,
   onDelete,
-  addCity
 }: WeatherCardProps) => {
+  // const loadingByCity = useAppSelector((state) => state.weather.loadingByCity);
+
+  function formatTime(timestamp: number) {
+    const date = new Date(timestamp);
+    return date.toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' });
+  }
+  const isLoading = false;
   return (
-    <section className="weather-card" onClick={onClick}>
+    <section
+      className={`weather-card${isLoading ? ' weather-card--loading' : ''}`}
+      onClick={onClick}
+    >
+      {isLoading && (
+        <div className="weather-card__loader">
+          <div className="weather-card__loader-gradient" />
+        </div>
+      )}
       <div className="weather-card__header">
-        <h3 className="weather-card__header__title">{city}</h3>
-        <button
-          className={`weather-card__header__btn--hover${isAdded ? ' weather-card__header__btn--active' : ''}`}
-          onClick={(e) => {
-            e.stopPropagation();
-            addCity(city);
-          }}
-        >
-          <img src={addIcon} alt="Add city to my list/button" />
-        </button>
+        <h3 className="weather-card__header__title">
+          {city}, {country}
+        </h3>
       </div>
-      <div className="weather-card__image-info">
-        <img src={sunnyIcon} alt="Weather" />
-      </div>
+      <div className="weather-card__image-info">{getWeatherIcon(icon)}</div>
       <div className="weather-card__body">
         <div className="weather-card__body__description">
-          <h3 className="weather-card__body__description-temp">{temperature}°C</h3>
+          <h3 className="weather-card__body__description-temp">{Math.round(temperature)}°C</h3>
           <p className="weather-card__body__description-info">{description}</p>
         </div>
         <div className="weather-card__body__btn-group">
@@ -66,6 +75,9 @@ export const WeatherCard = ({
           >
             <img src={deleteIcon} alt="Delete city/button" />
           </button>
+          <p className="weather-card__body__description-updated">
+            Updated: {formatTime(updatedAt)}
+          </p>
         </div>
       </div>
     </section>

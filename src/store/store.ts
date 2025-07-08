@@ -1,18 +1,20 @@
 import { configureStore } from '@reduxjs/toolkit';
 import localStorageService from '../services/localStorage/localStorageService';
 import weatherReducer from './slices/weatherSlice';
+import citySearchReducer from './slices/citySearchSlice';
 
 const preloadedCityNames = localStorageService.load();
 
 export const store = configureStore({
   reducer: {
     weather: weatherReducer,
+    citySearch: citySearchReducer,
   },
   preloadedState: {
     weather: {
       cityNames: preloadedCityNames,
       weatherByCity: {},
-      loading: false,
+      loading: true,
       error: null,
     },
   },

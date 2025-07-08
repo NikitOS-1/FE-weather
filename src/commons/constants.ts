@@ -1,13 +1,13 @@
 export const WEATHER_API = {
   API_KEY: import.meta.env.VITE_API_WEATHER_APP_ID,
-  BASE_URL: 'https://api.openweathermap.org/data/2.5',
+  BASE_URL: 'https://api.openweathermap.org',
 };
 
 export const STORAGE = {
   KEY: 'weather_cities',
 };
 
-export const WEATHER_ICONS = {
+export const WEATHER_ICONS: Record<string, string> = {
   '01d': '☀️',
   '01n': '🌙',
   '02d': '🌤️',
@@ -27,3 +27,7 @@ export const WEATHER_ICONS = {
   '50d': '🌫️',
   '50n': '🌫️',
 };
+
+export function getWeatherIcon(code: string): string {
+  return WEATHER_ICONS[code] || '_❔_';
+}

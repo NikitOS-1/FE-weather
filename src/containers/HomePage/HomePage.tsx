@@ -1,12 +1,12 @@
 import { useCallback, useEffect, useState } from 'react';
-import { useDispatch, useSelector } from 'react-redux';
-import { InputField } from '../../components/InputField/InputField';
 import { WeatherCard } from '../../components/WeatherCard/WeatherCard';
 import './HomePage.scss';
 import { useNavigate } from 'react-router-dom';
-import { addCity, getWeatherByCity, removeCity } from '../../store/slices/weatherSlice';
-import type { RootState, AppDispatch } from '../../store/store';
+import { getWeatherByCity, removeCity } from '../../store/slices/weatherSlice';
 import { debounce } from '../../helpers/debounce';
+import { CitySearchDropdown } from '../../components/CitySearchDropdown/CitySearchDropdown';
+import { useAppDispatch } from '../../helpers/useAppDispatch';
+import { useAppSelector } from '../../helpers/useAppSelector';
 
 const DELAY_SEARCH_INTERVAL = 1000;
 const MIN_SEARCH_LENGTH = 1;
@@ -14,9 +14,9 @@ const MIN_SEARCH_LENGTH = 1;
 export const HomePage = () => {
   const [searchValue, setSearchValue] = useState('');
   const navigate = useNavigate();
-  const dispatch = useDispatch<AppDispatch>();
-  const cityNames = useSelector((state: RootState) => state.weather.cityNames);
-  const weatherByCity = useSelector((state: RootState) => state.weather.weatherByCity);
+  const dispatch = useAppDispatch();
+  const cityNames = useAppSelector((state) => state.weather.cityNames);
+  const weatherByCity = useAppSelector((state) => state.weather.weatherByCity);
 
   const handleRefresh = (city: string) => {
     dispatch(getWeatherByCity(city));
@@ -36,7 +36,6 @@ export const HomePage = () => {
   );
 
   useEffect(() => {
-    debounceSearch(searchValue);
     cityNames.forEach((city) => {
       dispatch(getWeatherByCity(city));
     });
@@ -49,19 +48,14 @@ export const HomePage = () => {
   return (
     <main className="home-page">
       <section className="home-page__search">
-        <InputField
-          className="home-page__search-input"
-          placeholder="Search city"
-          value={searchValue}
-          onChange={(e) => setSearchValue(e.target.value)}
-        />
+        <CitySearchDropdown />
       </section>
       <section className="home-page__weather-list">
-        {/* {cityNames.length === 0 && (
+        {cityNames.length === 0 && (
           <p className="home-page__empty-message">
             No cities added yet. Please add some cities to see their weather.
           </p>
-        )} */}
+        )}
         {filteredCities.map((city) => {
           const weather = weatherByCity[city];
           if (!weather) return null;
@@ -69,13 +63,15 @@ export const HomePage = () => {
             <WeatherCard
               key={weather.id}
               city={weather.name}
+              state={weather.state || ''}
+              country={weather.country}
+              icon={weather.icon}
+              updatedAt={weather.updatedAt}
               temperature={weather.temperature}
               description={weather.description}
-              isAdded={cityNames.includes(weather.name)}
               onClick={() => navigate(`/${weather.name}`)}
               onRefresh={() => handleRefresh(city)}
               onDelete={() => handleDelete(city)}
-              addCity={(cityName) => dispatch(addCity(cityName))}
             />
           );
         })}

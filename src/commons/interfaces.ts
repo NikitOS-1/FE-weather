@@ -1,6 +1,8 @@
 export interface WeatherData {
   id: number;
   name: string;
+  country: string;
+  state?: string;
   temperature: number;
   description: string;
   icon: string;
@@ -53,4 +55,12 @@ export interface WeatherApiResponse {
   id: number;
   name: string;
   cod: number;
+}
+
+export interface CitySuggestion {
+  name: string;
+  country: string;
+  state?: string;
+  lat: number;
+  lon: number;
 }

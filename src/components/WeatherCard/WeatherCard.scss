@@ -1,4 +1,5 @@
 .weather-card {
+  position: relative;
   border-radius: 1.25rem;
   padding: 1.5rem;
   box-shadow:
@@ -13,6 +14,47 @@
   justify-content: space-between;
   border: 1.5px solid transparent;
   min-height: 260px;
+
+  &--loading {
+    pointer-events: none;
+    opacity: 0.85;
+  }
+
+  &__loader {
+    position: absolute;
+    inset: 0;
+    z-index: 10;
+    border-radius: inherit;
+    overflow: hidden;
+    display: flex;
+    align-items: stretch;
+    justify-content: stretch;
+    pointer-events: all;
+  }
+
+  &__loader-gradient {
+    width: 100%;
+    height: 100%;
+    background: linear-gradient(
+      120deg,
+      #23272f 0%,
+      #353942 25%,
+      #444851 50%,
+      #23272f 75%,
+      #353942 100%
+    );
+    background-size: 200% 200%;
+    animation: weather-card-gradient-move 1.2s linear infinite;
+    opacity: 0.85;
+
+    &::after {
+      content: '';
+      position: absolute;
+      inset: 0;
+      background: rgba(30, 32, 36, 0.45);
+      pointer-events: none;
+    }
+  }
 
   &:hover {
     transform: translateY(-6px) scale(1.025);
@@ -90,11 +132,9 @@
 
   &__image-info {
     margin: 1rem 0;
-
-    img {
-      width: 50px;
-      height: auto;
-    }
+    font-size: 40px;
+    width: 50px;
+    height: auto;
   }
 
   &__body {
@@ -119,6 +159,12 @@
         letter-spacing: 0.01em;
         opacity: 0.85;
       }
+      &-updated {
+        margin-top: 0.5rem;
+        font-size: 0.95rem;
+        color: var(--color-text-secondary, #888);
+        opacity: 0.7;
+      }
     }
 
     &__btn-group {
@@ -142,6 +188,15 @@
         }
       }
     }
+  }
+}
+
+@keyframes weather-card-gradient-move {
+  0% {
+    background-position: 0% 50%;
+  }
+  100% {
+    background-position: 100% 50%;
   }
 }
 

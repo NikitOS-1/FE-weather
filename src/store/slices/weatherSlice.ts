@@ -11,6 +11,8 @@ export const getWeatherByCity = createAsyncThunk<WeatherData, string>(
       return {
         id: data.id,
         name: data.name,
+        country: data.sys.country,
+        state: data.sys.type ? data.sys.type.toString() : undefined,
         temperature: data.main.temp,
         description: data.weather[0].description,
         icon: data.weather[0].icon,
@@ -76,9 +78,9 @@ const weatherSlice = createSlice({
       .addCase(getWeatherByCity.fulfilled, (state, action) => {
         state.loading = false;
         const cityName = action.payload.name;
-        // if (!state.cityNames.includes(cityName)) {
-        //   state.cityNames.push(cityName);
-        // }
+        if (!state.cityNames.includes(cityName)) {
+          state.cityNames.push(cityName);
+        }
         state.weatherByCity[cityName] = action.payload;
       })
       .addCase(getWeatherByCity.rejected, (state, action) => {

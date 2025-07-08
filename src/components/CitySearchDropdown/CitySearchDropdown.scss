@@ -1,0 +1,97 @@
+.city-search-dropdown {
+  position: relative;
+  width: 100%;
+  max-width: 400px;
+
+  &__input {
+    width: 100%;
+    padding: 0.9rem 1.2rem;
+    border-radius: 2rem;
+    border: 1.5px solid var(--btn-main, #139279);
+    background: #fff;
+    font-size: 1.1rem;
+    color: var(--color-text-primary, #333);
+    outline: none;
+    box-shadow: 0 2px 12px rgba(20, 180, 180, 0.07);
+    transition:
+      border 0.2s,
+      box-shadow 0.2s;
+
+    &::placeholder {
+      color: var(--color-placeholder, #999);
+      opacity: 1;
+      font-size: 1rem;
+      letter-spacing: 0.01em;
+    }
+
+    &:focus {
+      border-color: var(--btn-main, #139279);
+      box-shadow: 0 4px 16px rgba(20, 180, 180, 0.13);
+      background: var(--bg-form, #f8fffd);
+    }
+  }
+
+  &__suggestions {
+    position: absolute;
+    z-index: 10;
+    width: 100%;
+    background: #fff;
+    border: 1.5px solid var(--btn-main, #139279);
+    box-shadow: 0 4px 16px rgba(20, 180, 180, 0.13);
+    margin-top: 0.5rem;
+    max-height: 16rem;
+    overflow-y: auto;
+    border-radius: 1rem;
+    padding: 0.2rem 0;
+    box-sizing: border-box;
+
+    &::-webkit-scrollbar {
+      width: 8px;
+      background: transparent;
+    }
+
+    &::-webkit-scrollbar-thumb {
+      background: #e0f7f4;
+      border-radius: 6px;
+      border: 2px solid #fff;
+    }
+
+    &::-webkit-scrollbar-thumb:hover {
+      background: var(--btn-main, #139279);
+    }
+
+    scrollbar-width: thin;
+    scrollbar-color: #e0f7f4 #fff;
+  }
+
+  &__suggestion {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 0.7rem 1.2rem;
+    cursor: pointer;
+    transition: background 0.15s;
+
+    &:hover {
+      background: #f2fdfb;
+    }
+
+    &-add-btn {
+      background: none;
+      border: none;
+      color: var(--btn-main, #139279);
+      font-size: 1.2rem;
+      cursor: pointer;
+      padding: 0.2rem 0.5rem;
+      border-radius: 50%;
+      transition:
+        background 0.15s,
+        color 0.15s;
+
+      &:hover {
+        background: var(--btn-main, #139279);
+        color: #fff;
+      }
+    }
+  }
+}
