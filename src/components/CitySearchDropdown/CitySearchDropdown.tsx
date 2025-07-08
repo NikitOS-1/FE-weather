@@ -1,24 +1,39 @@
-import { useEffect, useState } from 'react';
+import { useEffect, useState, useCallback } from 'react';
 import { clearSuggestions, fetchCitySuggestions } from '../../store/slices/citySearchSlice';
 import { addCity, getWeatherByCity } from '../../store/slices/weatherSlice';
 import { useAppDispatch } from '../../helpers/useAppDispatch';
 import { useAppSelector } from '../../helpers/useAppSelector';
 import './CitySearchDropdown.scss';
+import { debounce } from '../../helpers/debounce';
+
+const SEARCH_DEBOUNCE_DELAY = 400;
 
 export const CitySearchDropdown = () => {
   const [input, setInput] = useState('');
   const dispatch = useAppDispatch();
   const { suggestions } = useAppSelector((state) => state.citySearch);
   const cityNames = useAppSelector((state) => state.weather.cityNames);
-  // const isLoading = useAppSelector((state) => state.citySearch.loading);
+
+  const debouncedFetchSuggestions = useCallback(
+    debounce((value: string) => {
+      if (value.length >= 2) {
+        dispatch(fetchCitySuggestions(value));
+      }
+    }, SEARCH_DEBOUNCE_DELAY),
+    [dispatch],
+  );
 
   useEffect(() => {
     if (input.length >= 2) {
-      dispatch(fetchCitySuggestions(input));
+      debouncedFetchSuggestions(input);
     } else {
       dispatch(clearSuggestions());
     }
-  }, [input, dispatch]);
+
+    return () => {
+      debouncedFetchSuggestions.cancel?.();
+    };
+  }, [input, debouncedFetchSuggestions, dispatch]);
 
   const handleAddCity = (name: string) => {
     if (!cityNames.includes(name)) {

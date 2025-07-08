@@ -1,13 +1,13 @@
-export function debounce(func: any, delay: number) {
-  let timeoutId: NodeJS.Timeout | null = null;
-
-  return function (...args: any) {
-    if (timeoutId) {
-      clearTimeout(timeoutId);
-    }
-
-    timeoutId = setTimeout(() => {
+export function debounce<T extends (...args: any[]) => void>(func: T, delay: number) {
+  let timer: ReturnType<typeof setTimeout>;
+  const debounced = (...args: Parameters<T>) => {
+    clearTimeout(timer);
+    timer = setTimeout(() => {
       func(...args);
     }, delay);
   };
+
+  debounced.cancel = () => clearTimeout(timer);
+
+  return debounced;
 }
