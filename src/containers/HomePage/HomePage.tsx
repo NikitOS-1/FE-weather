@@ -1,3 +1,4 @@
+import { useState } from 'react';
 import { InputField } from '../../components/InputField/InputField';
 import { WeatherCard } from '../../components/WeatherCard/WeatherCard';
 import './HomePage.scss';
@@ -46,10 +47,16 @@ const mockCities = [
 ];
 
 export const HomePage = () => {
+  const [searchValue, setSearchValue] = useState<string>('');
   return (
     <main className="home-page">
       <section className="home-page__search">
-        <InputField placeholder="Search city" />
+        <InputField
+          className="home-page__search-input"
+          placeholder="Search city"
+          value={searchValue}
+          onChange={(e) => setSearchValue(e.target.value)}
+        />
       </section>
       <section className="home-page__weather-list">
         {mockCities.map((city) => (
