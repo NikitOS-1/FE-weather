@@ -2,12 +2,29 @@
 <html lang="en">
   <head>
     <meta charset="UTF-8" />
-    <link rel="icon" type="image/svg+xml" href="/vite.svg" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Weather app</title>
+    <meta
+      name="description"
+      content="Weather application showing current and forecast weather for selected cities"
+    />
+    <meta name="theme-color" content="#139279" />
+    <link
+      rel="icon"
+      type="image/svg+xml"
+      href="/sunny_24dp_434343_FILL0_wght400_GRAD0_opsz24.svg"
+    />
+    <link rel="apple-touch-icon" href="/sunny_24dp_434343_FILL0_wght400_GRAD0_opsz24.svg" />
+    <link rel="manifest" href="/manifest.json" />
+    <title>Weather Forecast App</title>
   </head>
   <body>
-    <div id="root"></div>
-    <script type="module" src="/src/main.tsx"></script>
+    <noscript>
+      <strong
+        >We're sorry but this application requires JavaScript to work properly. Please enable it to
+        continue.</strong
+      >
+    </noscript>
+    <div id="root" role="main"></div>
+    <script type="module" src="/src/main.tsx" defer></script>
   </body>
 </html>
