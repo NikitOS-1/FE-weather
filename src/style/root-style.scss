@@ -22,7 +22,7 @@
   /* Backgrounds */
   --bg-main: linear-gradient(to left bottom, #fff, rgba(98, 244, 237, 0.5));
   --bg-secondary: linear-gradient(to top, #fff 20%, #98ffea 100%);
-  --bg-block: linear-gradient(to left bottom, #fff, rgba(98, 244, 237, 0.5));
+  --bg-block: linear-gradient(to left bottom, #fff, rgba(125, 238, 232, 0.353));
 
   /* Buttons & Active */
   --btn-main: #25c5a5;
@@ -66,6 +66,7 @@ body {
   font-size: var(--font-size-body);
   line-height: var(--line-height-body);
   color: var(--color-text-secondary);
+  background: var(--bg-block);
 }
 
 h1,

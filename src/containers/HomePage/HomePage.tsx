@@ -16,9 +16,11 @@ export const HomePage: React.FC = () => {
 
   useEffect(() => {
     cityNames.forEach((city: string) => {
-      dispatch(getWeatherByCity(city));
+      if (!weatherByCity[city]) {
+        dispatch(getWeatherByCity(city));
+      }
     });
-  }, [dispatch]);
+  }, [dispatch, cityNames, weatherByCity]);
 
   const handleRefresh = useCallback(
     (city: string) => {
