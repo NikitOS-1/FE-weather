@@ -33,7 +33,6 @@ export const CitySearchDropdown: React.FC = () => {
     [dispatch],
   );
 
-  // Обработчик клика вне компонента
   useEffect(() => {
     const handleClickOutside = (event: MouseEvent) => {
       if (dropdownRef.current && !dropdownRef.current.contains(event.target as Node)) {

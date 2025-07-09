@@ -15,12 +15,10 @@ export const HomePage: React.FC = () => {
   const loading = useAppSelector((state) => state.weather.loading);
 
   useEffect(() => {
-    if (cityNames.length > 0) {
-      cityNames.forEach((city) => {
-        dispatch(getWeatherByCity(city));
-      });
-    }
-  }, [dispatch, cityNames]);
+    cityNames.forEach((city: string) => {
+      dispatch(getWeatherByCity(city));
+    });
+  }, [dispatch]);
 
   const handleRefresh = useCallback(
     (city: string) => {
