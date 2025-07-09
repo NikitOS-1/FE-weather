@@ -20,7 +20,8 @@ export const HomePage: React.FC = () => {
         dispatch(getWeatherByCity(city));
       }
     });
-  }, [dispatch, cityNames, weatherByCity]);
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [dispatch, cityNames]);
 
   const handleRefresh = useCallback(
     (city: string) => {
