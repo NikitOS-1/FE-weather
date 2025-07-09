@@ -1,4 +1,3 @@
-import React from 'react';
 import { render, screen, fireEvent } from '@testing-library/react';
 import { HomePage } from '../../containers/HomePage/HomePage';
 import { MemoryRouter } from 'react-router-dom';

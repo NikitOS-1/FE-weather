@@ -1,4 +1,4 @@
-import { AnyAction } from '@reduxjs/toolkit';
+import type { AnyAction } from '@reduxjs/toolkit';
 
 jest.mock('../../commons/constants', () => ({
   WEATHER_API: {

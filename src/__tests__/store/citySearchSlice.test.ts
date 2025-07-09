@@ -1,4 +1,4 @@
-import { AnyAction } from '@reduxjs/toolkit';
+import type { AnyAction } from '@reduxjs/toolkit';
 
 jest.mock('../../services/weather/weatherService', () => ({
   fetchCitySuggestions: jest.fn(),
@@ -24,7 +24,7 @@ describe('citySearchSlice', () => {
   it('should handle clearSuggestions', () => {
     const state = {
       ...initialState,
-      suggestions: [{ name: 'Kyiv', country: 'UA' }],
+      suggestions: [{ name: 'Kyiv', country: 'UA', lat: 50.45, lon: 30.52 }],
     };
     const nextState = reducer(state, clearSuggestions());
     expect(nextState.suggestions).toEqual([]);
@@ -39,8 +39,8 @@ describe('citySearchSlice', () => {
 
   it('should handle fetchCitySuggestions.fulfilled', () => {
     const payload = [
-      { name: 'Kyiv', country: 'UA' },
-      { name: 'London', country: 'GB' },
+      { name: 'Kyiv', country: 'UA', lat: 50.45, lon: 30.52 },
+      { name: 'London', country: 'GB', lat: 51.51, lon: -0.13 },
     ];
     const action = { type: fetchCitySuggestions.fulfilled.type, payload };
     const nextState = reducer(initialState, action);

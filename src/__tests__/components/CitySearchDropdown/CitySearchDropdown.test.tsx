@@ -1,5 +1,5 @@
 import '@testing-library/jest-dom';
-import React from 'react';
+
 
 jest.mock('../../../commons/constants', () => ({
   WEATHER_API: {
