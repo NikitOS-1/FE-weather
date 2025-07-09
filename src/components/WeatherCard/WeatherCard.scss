@@ -15,20 +15,12 @@
   border: 1.5px solid transparent;
   min-height: 260px;
 
-  &--loading {
-    pointer-events: none;
-    opacity: 0.85;
-  }
-
   &__loader {
     position: absolute;
     inset: 0;
     z-index: 10;
     border-radius: inherit;
     overflow: hidden;
-    display: flex;
-    align-items: stretch;
-    justify-content: stretch;
     pointer-events: all;
   }
 
@@ -37,23 +29,15 @@
     height: 100%;
     background: linear-gradient(
       120deg,
-      #23272f 0%,
-      #353942 25%,
-      #444851 50%,
-      #23272f 75%,
-      #353942 100%
+      #23272f8b 0%,
+      #35394292 25%,
+      #b2b4b9 50%,
+      #23272faa 75%,
+      #353942a4 100%
     );
-    background-size: 200% 200%;
-    animation: weather-card-gradient-move 1.2s linear infinite;
-    opacity: 0.85;
-
-    &::after {
-      content: '';
-      position: absolute;
-      inset: 0;
-      background: rgba(30, 32, 36, 0.45);
-      pointer-events: none;
-    }
+    background-size: 300% 300%;
+    animation: weather-card-gradient-move 1s linear infinite;
+    opacity: 0.55;
   }
 
   &:hover {
@@ -195,8 +179,11 @@
   0% {
     background-position: 0% 50%;
   }
-  100% {
+  50% {
     background-position: 100% 50%;
+  }
+  100% {
+    background-position: 0% 50%;
   }
 }
 
