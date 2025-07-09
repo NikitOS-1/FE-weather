@@ -13,7 +13,7 @@
 ## 🚀 Швидкий старт
 
 ```bash
-git clone https://github.com/your-username/weather-forecast-app.git
+git clone [https://github.com/your-username/weather-forecast-app.git](https://github.com/NikitOS-1/FE-weather.git)
 cd weather-forecast-app
 npm install
 npm run dev
