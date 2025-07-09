@@ -63,7 +63,6 @@ const weatherSlice = createSlice({
       if (!state.cityNames.includes(city)) {
         state.cityNames.push(city);
         state.weatherByCity[city] = null;
-        localStorageService.save(state.cityNames);
       }
     },
     removeCity(state, action: PayloadAction<string>) {
@@ -87,6 +86,7 @@ const weatherSlice = createSlice({
         state.loadingByCity[cityName] = false;
         if (!state.cityNames.includes(cityName)) {
           state.cityNames.push(cityName);
+          localStorageService.save(state.cityNames);
         }
         state.weatherByCity[cityName] = action.payload;
       })

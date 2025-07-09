@@ -1,6 +1,6 @@
 import { useEffect, useState, useCallback } from 'react';
 import { clearSuggestions, fetchCitySuggestions } from '../../store/slices/citySearchSlice';
-import { addCity, getWeatherByCity } from '../../store/slices/weatherSlice';
+import { getWeatherByCity } from '../../store/slices/weatherSlice';
 import { useAppDispatch } from '../../helpers/useAppDispatch';
 import { useAppSelector } from '../../helpers/useAppSelector';
 import './CitySearchDropdown.scss';
@@ -10,9 +10,12 @@ const SEARCH_DEBOUNCE_DELAY = 400;
 
 export const CitySearchDropdown = () => {
   const [input, setInput] = useState('');
+  const [showError, setShowError] = useState(false);
+  const [hideError, setHideError] = useState(false);
   const dispatch = useAppDispatch();
   const { suggestions } = useAppSelector((state) => state.citySearch);
   const cityNames = useAppSelector((state) => state.weather.cityNames);
+  const errors = useAppSelector((state) => state.weather.error);
 
   const debouncedFetchSuggestions = useCallback(
     debounce((value: string) => {
@@ -35,9 +38,21 @@ export const CitySearchDropdown = () => {
     };
   }, [input, debouncedFetchSuggestions, dispatch]);
 
+  useEffect(() => {
+    if (errors) {
+      setShowError(true);
+      setHideError(false);
+      const timer = setTimeout(() => setHideError(true), 3200);
+      const timer2 = setTimeout(() => setShowError(false), 3600);
+      return () => {
+        clearTimeout(timer);
+        clearTimeout(timer2);
+      };
+    }
+  }, [errors]);
+
   const handleAddCity = (name: string) => {
     if (!cityNames.includes(name)) {
-      dispatch(addCity(name));
       dispatch(getWeatherByCity(name));
     }
     setInput('');
@@ -46,9 +61,19 @@ export const CitySearchDropdown = () => {
 
   return (
     <div className="city-search-dropdown">
+      {showError && errors && (
+        <div
+          className={
+            `city-search-dropdown__error city-search-dropdown__error--floating` +
+            (hideError ? ' city-search-dropdown__error--hide' : '')
+          }
+        >
+          <p>City not found</p>
+        </div>
+      )}
       <input
         type="text"
-        placeholder="Введіть назву міста..."
+        placeholder="Enter the city name..."
         value={input}
         onChange={(e) => setInput(e.target.value)}
         className="city-search-dropdown__input"
