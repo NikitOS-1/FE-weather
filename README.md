@@ -6,7 +6,7 @@
 
 Сучасний застосунок прогнозу погоди на React + TypeScript + Vite.  
 Дозволяє шукати міста, переглядати поточну погоду та погодинний прогноз, зберігати улюблені міста.  
-Використовує OpenWeatherMap API, Redux Toolkit, Chart.js, адаптивний дизайн.
+Використовує OpenWeatherMap API, Redux Toolkit, Chart.js, адаптивний дизайн
 
 ---
 
