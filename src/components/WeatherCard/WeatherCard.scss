@@ -116,15 +116,13 @@
 
   &__image-info {
     margin: 1rem 0;
-    font-size: 40px;
-    width: 50px;
-    height: auto;
+    font-size: 50px;
   }
 
   &__body {
     margin-top: 1rem;
     display: flex;
-    align-items: center;
+    align-items: flex-end;
     justify-content: space-between;
     gap: 0.5rem;
 
