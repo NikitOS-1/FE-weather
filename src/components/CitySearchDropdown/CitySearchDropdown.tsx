@@ -11,6 +11,7 @@ const SEARCH_DEBOUNCE_DELAY = 400;
 export const CitySearchDropdown = () => {
   const [input, setInput] = useState('');
   const [showError, setShowError] = useState(false);
+  const [showMessage, setShowMessage] = useState<string>('');
   const [hideError, setHideError] = useState(false);
   const dispatch = useAppDispatch();
   const { suggestions } = useAppSelector((state) => state.citySearch);
@@ -52,9 +53,10 @@ export const CitySearchDropdown = () => {
   }, [errors]);
 
   const handleAddCity = (name: string) => {
-    if (!cityNames.includes(name)) {
-      dispatch(getWeatherByCity(name));
+    if (cityNames.includes(name)) {
+      setShowMessage('City already exists');
     }
+    dispatch(getWeatherByCity(name));
     setInput('');
     dispatch(clearSuggestions());
   };
@@ -68,7 +70,7 @@ export const CitySearchDropdown = () => {
             (hideError ? ' city-search-dropdown__error--hide' : '')
           }
         >
-          <p>City not found</p>
+          <p>{showMessage && 'City not found'}</p>
         </div>
       )}
       <input

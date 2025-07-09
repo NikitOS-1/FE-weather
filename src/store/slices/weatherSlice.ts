@@ -58,13 +58,6 @@ const weatherSlice = createSlice({
   name: 'weather',
   initialState,
   reducers: {
-    addCity(state, action: PayloadAction<string>) {
-      const city = action.payload.trim();
-      if (!state.cityNames.includes(city)) {
-        state.cityNames.push(city);
-        state.weatherByCity[city] = null;
-      }
-    },
     removeCity(state, action: PayloadAction<string>) {
       const city = action.payload;
       state.cityNames = state.cityNames.filter((name) => name !== city);
@@ -99,5 +92,5 @@ const weatherSlice = createSlice({
   },
 });
 
-export const { addCity, removeCity } = weatherSlice.actions;
+export const { removeCity } = weatherSlice.actions;
 export default weatherSlice.reducer;
