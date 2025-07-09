@@ -13,7 +13,7 @@
 ## 🚀 Швидкий старт
 
 ```bash
-git clone https://github.com/your-username/weather-forecast-app.git
+git clone https://github.com/NikitOS-1/FE-weather.git
 cd weather-forecast-app
 npm install
 npm run dev
@@ -73,9 +73,9 @@ npm run build
 
 1. Отримайте API-ключ на [OpenWeatherMap](https://openweathermap.org/api).
 2. Створіть файл `.env` у корені проєкту:
-    ```
-    VITE_WEATHER_API_KEY=ваш_ключ
-    ```
+   ```
+   VITE_WEATHER_API_KEY=ваш_ключ
+   ```
 3. Перезапустіть dev-сервер.
 
 ---
