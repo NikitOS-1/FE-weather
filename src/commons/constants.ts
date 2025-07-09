@@ -1,7 +1,13 @@
 export const WEATHER_API = {
-  API_KEY: import.meta.env.VITE_API_WEATHER_APP_ID,
+  API_KEY: getApiKey(),
   BASE_URL: 'https://api.openweathermap.org',
 };
+
+function getApiKey() {
+  return typeof import.meta !== 'undefined' && import.meta.env
+    ? import.meta.env.VITE_API_WEATHER_APP_ID
+    : process.env.VITE_API_WEATHER_APP_ID;
+}
 
 export const STORAGE = {
   KEY: 'weather_cities',
