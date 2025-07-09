@@ -1,15 +1,19 @@
 import { STORAGE } from '../../commons/constants';
 
-const save = (cities: string[]): void => {
-  localStorage.setItem(STORAGE.KEY, JSON.stringify(cities));
+export const save = (cityNames: string[]) => {
+  try {
+    localStorage.setItem('cities', JSON.stringify(cityNames));
+  } catch (error) {
+    console.error('localStorage save error:', error);
+  }
 };
 
-const load = (): string[] => {
-  const raw = localStorage.getItem(STORAGE.KEY);
-  if (!raw) return [];
+export const load = (): string[] => {
   try {
-    return JSON.parse(raw);
-  } catch {
+    const data = localStorage.getItem('cities');
+    return data ? JSON.parse(data) : [];
+  } catch (error) {
+    console.error('localStorage load error:', error);
     return [];
   }
 };

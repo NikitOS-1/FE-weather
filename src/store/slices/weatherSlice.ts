@@ -42,6 +42,7 @@ interface WeatherState {
   cityNames: string[];
   weatherByCity: Record<string, WeatherData | null>;
   loading: boolean;
+  loadingByCity: Record<string, boolean>;
   error: string | null;
 }
 
@@ -49,6 +50,7 @@ const initialState: WeatherState = {
   cityNames: localStorageService.load(),
   weatherByCity: {},
   loading: false,
+  loadingByCity: {},
   error: null,
 };
 
@@ -73,20 +75,25 @@ const weatherSlice = createSlice({
   },
   extraReducers: (builder) => {
     builder
-      .addCase(getWeatherByCity.pending, (state) => {
-        state.loading = true;
+      .addCase(getWeatherByCity.pending, (state, action) => {
+        const cityName = action.meta.arg;
         state.error = null;
+        state.loading = true;
+        state.loadingByCity[cityName] = true;
       })
       .addCase(getWeatherByCity.fulfilled, (state, action) => {
-        state.loading = false;
         const cityName = action.payload.name;
+        state.loading = false;
+        state.loadingByCity[cityName] = false;
         if (!state.cityNames.includes(cityName)) {
           state.cityNames.push(cityName);
         }
         state.weatherByCity[cityName] = action.payload;
       })
       .addCase(getWeatherByCity.rejected, (state, action) => {
+        const cityName = action.meta.arg;
         state.loading = false;
+        state.loadingByCity[cityName] = false;
         state.error = (action.payload as string) || 'Failed to fetch weather';
       });
   },

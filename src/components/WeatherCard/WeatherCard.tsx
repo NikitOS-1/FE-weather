@@ -28,13 +28,13 @@ export const WeatherCard = ({
   onRefresh,
   onDelete,
 }: WeatherCardProps) => {
-  // const loadingByCity = useAppSelector((state) => state.weather.loadingByCity);
+  const loadingByCity = useAppSelector((state) => state.weather.loadingByCity);
 
   function formatTime(timestamp: number) {
     const date = new Date(timestamp);
     return date.toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' });
   }
-  const isLoading = false;
+  const isLoading = loadingByCity[city] || loadingByCity[`${city}, ${country}`];
   return (
     <section
       className={`weather-card${isLoading ? ' weather-card--loading' : ''}`}
