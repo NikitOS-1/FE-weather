@@ -56,7 +56,7 @@ export const WeatherCard = React.memo(
       >
         {isLoading && (
           <div className="weather-card__loader">
-            <div className="weather-card__loader-gradient" />
+            <div className="weather-card__loader-gradient" data-testid="loader-gradient" />
           </div>
         )}
 
