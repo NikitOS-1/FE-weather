@@ -1,6 +1,6 @@
 import { AnyAction } from '@reduxjs/toolkit';
 
-jest.mock('../../../commons/constants', () => ({
+jest.mock('../../commons/constants', () => ({
   WEATHER_API: {
     API_KEY: 'test-key',
     BASE_URL: 'https://api.openweathermap.org',
@@ -10,7 +10,7 @@ jest.mock('../../../commons/constants', () => ({
   __esModule: true,
 }));
 
-jest.mock('../../../services/localStorage/localStorageService', () => ({
+jest.mock('../../services/localStorage/localStorageService', () => ({
   __esModule: true,
   default: {
     save: jest.fn(),
@@ -19,12 +19,12 @@ jest.mock('../../../services/localStorage/localStorageService', () => ({
   },
 }));
 
-jest.mock('../../../services/weather/weatherService', () => ({
+jest.mock('../../services/weather/weatherService', () => ({
   getWeatherByCityName: jest.fn(),
   __esModule: true,
 }));
 
-import reducer, { removeCity, getWeatherByCity } from '../../../store/slices/weatherSlice';
+import reducer, { removeCity, getWeatherByCity } from '../../store/slices/weatherSlice';
 
 describe('weatherSlice', () => {
   const initialState = {

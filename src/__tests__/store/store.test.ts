@@ -1,6 +1,6 @@
 import { configureStore } from '@reduxjs/toolkit';
 
-jest.mock('../../../commons/constants', () => ({
+jest.mock('../../commons/constants', () => ({
   WEATHER_API: {
     API_KEY: 'test-key',
     BASE_URL: 'https://api.openweathermap.org',
@@ -10,8 +10,8 @@ jest.mock('../../../commons/constants', () => ({
   __esModule: true,
 }));
 
-import weatherReducer from '../../../store/slices/weatherSlice';
-import citySearchReducer from '../../../store/slices/citySearchSlice';
+import weatherReducer from '../../store/slices/weatherSlice';
+import citySearchReducer from '../../store/slices/citySearchSlice';
 
 describe('Redux store', () => {
   it('should create store with weather and citySearch reducers', () => {

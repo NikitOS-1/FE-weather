@@ -1,6 +1,6 @@
 import { AnyAction } from '@reduxjs/toolkit';
 
-jest.mock('../../../services/weather/weatherService', () => ({
+jest.mock('../../services/weather/weatherService', () => ({
   fetchCitySuggestions: jest.fn(),
   __esModule: true,
 }));
@@ -8,7 +8,7 @@ jest.mock('../../../services/weather/weatherService', () => ({
 import reducer, {
   clearSuggestions,
   fetchCitySuggestions,
-} from '../../../store/slices/citySearchSlice';
+} from '../../store/slices/citySearchSlice';
 
 describe('citySearchSlice', () => {
   const initialState = {
