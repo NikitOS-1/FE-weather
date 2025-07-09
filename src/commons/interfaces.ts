@@ -14,6 +14,13 @@ export interface WeatherData {
   lon: number;
 }
 
+export interface HourlyForecast {
+  dt: number;
+  main: {
+    temp: number;
+  };
+}
+
 export interface WeatherApiResponse {
   coord: {
     lon: number;

@@ -46,7 +46,7 @@ const citySearchSlice = createSlice({
       })
       .addCase(fetchCitySuggestions.rejected, (state, action) => {
         state.loading = false;
-        state.error = action.payload || 'Помилка';
+        state.error = action.payload || 'Errors while fetching suggestions';
       });
   },
 });
