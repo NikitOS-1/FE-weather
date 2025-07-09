@@ -16,6 +16,14 @@
     gap: 3rem;
     padding: 2rem 0.5rem;
   }
+
+  &__empty-message {
+    width: 100%;
+    text-align: center;
+    font-size: 1.5rem;
+    color: var(--text-secondary, #6c757d);
+    margin-top: 2rem;
+  }
 }
 
 @media (max-width: 768px) {

@@ -32,12 +32,12 @@ export const HomePage = () => {
       <section className="home-page__search">
         <CitySearchDropdown />
       </section>
+      {cityNames.length === 0 && (
+        <p className="home-page__empty-message">
+          No cities added yet. Please add some cities to see their weather. 😊
+        </p>
+      )}
       <section className="home-page__weather-list">
-        {cityNames.length === 0 && (
-          <p className="home-page__empty-message">
-            No cities added yet. Please add some cities to see their weather.
-          </p>
-        )}
         {cityNames.map((city) => {
           const weather = weatherByCity[city];
           if (!weather) return null;
